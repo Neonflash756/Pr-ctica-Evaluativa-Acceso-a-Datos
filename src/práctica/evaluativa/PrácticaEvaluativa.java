@@ -24,26 +24,31 @@ public class PrácticaEvaluativa {
         ResultSet rs;
         Scanner sc = new Scanner(System.in);
         
-        try (Statement st = conexion.createStatement()) {
+        try (Statement st = conexion.createStatement()) { 
+            System.out.print("INTRODUZCA NOMBRE DEL FABRICANTE: ");
+            String nombreFabricante = sc.nextLine();
+            
+            System.out.print("INTRODUZCA CÓDIGO DEL FABRICANTE: ");
+            String codigoFabricante = sc.nextLine();
+            
             System.out.println("INTRODUZCA NOMBRE DEL PRODUCTO: ");
             String nombreProducto = sc.nextLine();
             
             System.out.print("INTRODUZCA PRECIO DEL PRODUCTO: ");
-            String p = sc.nextLine();
-            double precio = Double.parseDouble(p);
+            String precio = sc.nextLine(); 
                     
-            System.out.print("INTRODUZCA NOMBRE DEL FABRICANTE: ");
-            String nombreFabricante = sc.nextLine();
-                    
-            PreparedStatement ps = conexion.prepareStatement("INSERT INTO fabricante (nombre)");
+            
+            PreparedStatement ps = conexion.prepareStatement("INSERT INTO fabricante (nombre) values(?)");
             ps.setString(1, nombreFabricante);
             ps.executeUpdate();
             ps.close();
             
-            PreparedStatement PS = conexion.prepareStatement("INSERT INTO producto (nombre, precio)");
-            ps.setString(1, nombreFabricante);
-            ps.executeUpdate();
-            ps.close();
+            PreparedStatement PS = conexion.prepareStatement("INSERT INTO producto (nombre, precio ,codigo_fabricante) values(?,?,?)");
+            PS.setString(1, nombreProducto);
+            PS.setString(2, precio);
+            PS.setString(3, codigoFabricante);
+            PS.executeUpdate();
+            PS.close();
         }
     }
     
