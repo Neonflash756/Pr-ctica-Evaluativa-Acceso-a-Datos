@@ -5,17 +5,46 @@
  */
 package práctica.evaluativa;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
 /**
  *
- * @author xp
+ * @author Alejandro Cobo López
  */
 public class PrácticaEvaluativa {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/tienda","root","");
+        ResultSet rs;
+        Scanner sc = new Scanner(System.in);
+        
+        try (Statement st = conexion.createStatement()) {
+            System.out.println("INTRODUZCA NOMBRE DEL PRODUCTO: ");
+            String nombreProducto = sc.nextLine();
+            
+            System.out.print("INTRODUZCA PRECIO DEL PRODUCTO: ");
+            String p = sc.nextLine();
+            double precio = Double.parseDouble(p);
+                    
+            System.out.print("INTRODUZCA NOMBRE DEL FABRICANTE: ");
+            String nombreFabricante = sc.nextLine();
+                    
+            PreparedStatement ps = conexion.prepareStatement("INSERT INTO fabricante (nombre)");
+            ps.setString(1, nombreFabricante);
+            ps.executeUpdate();
+            ps.close();
+            
+            PreparedStatement PS = conexion.prepareStatement("INSERT INTO producto (nombre, precio)");
+            ps.setString(1, nombreFabricante);
+            ps.executeUpdate();
+            ps.close();
+        }
     }
     
 }
