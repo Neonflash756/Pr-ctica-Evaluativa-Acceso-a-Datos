@@ -24,11 +24,11 @@ public class PrácticaEvaluativa {
         ResultSet rs;
         Scanner sc = new Scanner(System.in);
         System.out.print("QUIERE ADICIONAR NUEVOS DATOS A LA BASO DE DATOS?"
-                + "SI/NO");
+                + "SI=1" + "NO=2");
         String respuesta = sc.nextLine();
+        int numero = Integer.parseInt(respuesta);
         
-        
-        while(respuesta!= ){
+        while(numero == 1){
             try (Statement st = conexion.createStatement()) { 
                 System.out.print("INTRODUZCA NOMBRE DEL FABRICANTE: ");
                 String nombreFabricante = sc.nextLine();
@@ -53,9 +53,16 @@ public class PrácticaEvaluativa {
                 PS.setString(2, precio);
                 PS.setString(3, codigoFabricante);
                 PS.executeUpdate();
-                PS.close();
+                PS.close();   
             }
+            
+            System.out.print("QUIERE ADICIONAR NUEVOS DATOS A LA BASO DE DATOS?"
+                + "SI=1" + "NO=2");
+            respuesta = sc.nextLine();
+            numero = Integer.parseInt(respuesta);
         }
+        
+        System.out.print("PROGRAMA FINALIZADO");
     }
     
 }
